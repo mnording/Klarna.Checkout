@@ -30,10 +30,8 @@ namespace Klarna.Checkout
             using(var reader = new StreamReader(response.GetResponseStream()))
             {
                 string result = reader.ReadToEnd(); // do something fun...
-                JObject orderResponse = JObject.Parse(result);
-                order.OrderId = orderResponse["order_id"].ToString();
-                order.Status = orderResponse["status"].ToString();
-                order.Snippet = orderResponse["html_snippet"].ToString();
+                var jsreader = new JsonTextReader(new StringReader(result));
+                order = new JsonSerializer().Deserialize<CheckoutOrder>(jsreader);
             }
             return order;
         }

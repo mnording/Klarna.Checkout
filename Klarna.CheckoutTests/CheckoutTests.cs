@@ -20,17 +20,20 @@ namespace Klarna.CheckoutTests
             {
                 new OrderLine("test", 2, 1000, 2500)
             };
-            MerchantUrls url = new MerchantUrls();
-            url.Terms = new Uri("http://www.test.com");
-            url.Push = new Uri("http://www.test.com");
-            url.CheckoutUri = new Uri("http://www.test.com");
-            url.Confirmation = new Uri("http://www.test.com");
-            Address ad = new Address();
-            CheckoutOrder order = new CheckoutOrder(orderlines, url);
-            order.Locale = "sv-se";
-            order.PurchaseCountry = "se";
-            order.PurchaseCurrency = "SEK";
-           
+            MerchantUrls url = new MerchantUrls
+            {
+                Terms = new Uri("http://www.test.com"),
+                Push = new Uri("http://www.test.com"),
+                CheckoutUri = new Uri("http://www.test.com"),
+                Confirmation = new Uri("http://www.test.com")
+            };
+            CheckoutOrder order = new CheckoutOrder(orderlines, url)
+            {
+                Locale = "sv-se",
+                PurchaseCountry = "se",
+                PurchaseCurrency = "SEK"
+            };
+
             order =  check.Create(order);
             Assert.AreEqual("checkout_incomplete",order.Status);
             Assert.IsNotNull(order.Snippet);
@@ -45,16 +48,20 @@ namespace Klarna.CheckoutTests
             {
                 new OrderLine("test", 2, 1000, 2500)
             };
-            MerchantUrls url = new MerchantUrls();
-            url.Terms = new Uri("http://www.test.com");
-            url.Push = new Uri("http://www.test.com");
-            url.CheckoutUri = new Uri("http://www.test.com");
-            url.Confirmation = new Uri("http://www.test.com");
-            CheckoutOrder order = new CheckoutOrder(orderlines, url);
-            order.Locale = "sv-se";
-            order.PurchaseCountry = "se";
-            order.PurchaseCurrency = "SEK";
-            
+            MerchantUrls url = new MerchantUrls
+            {
+                Terms = new Uri("http://www.test.com"),
+                Push = new Uri("http://www.test.com"),
+                CheckoutUri = new Uri("http://www.test.com"),
+                Confirmation = new Uri("http://www.test.com")
+            };
+            CheckoutOrder order = new CheckoutOrder(orderlines, url)
+            {
+                Locale = "sv-se",
+                PurchaseCountry = "se",
+                PurchaseCurrency = "SEK"
+            };
+
             order = check.Create(order);
             Assert.AreEqual("checkout_incomplete", order.Status);
             Assert.IsNotNull(order.Snippet);
@@ -72,16 +79,19 @@ namespace Klarna.CheckoutTests
             {
                 new OrderLine("test", 2, 1000, 2500)
             };
-            MerchantUrls url = new MerchantUrls();
-            url.Terms = new Uri("http://www.test.com");
-            url.Push = new Uri("http://www.test.com");
-            url.CheckoutUri = new Uri("http://www.test.com");
-            url.Confirmation = new Uri("http://www.test.com");
-            Address ad = new Address();
-            CheckoutOrder order = new CheckoutOrder(orderlines, url);
-            order.Locale = "sv-se";
-            order.PurchaseCountry = "se";
-            order.PurchaseCurrency = "SEK";
+            MerchantUrls url = new MerchantUrls
+            {
+                Terms = new Uri("http://www.test.com"),
+                Push = new Uri("http://www.test.com"),
+                CheckoutUri = new Uri("http://www.test.com"),
+                Confirmation = new Uri("http://www.test.com")
+            };
+            CheckoutOrder order = new CheckoutOrder(orderlines, url)
+            {
+                Locale = "sv-se",
+                PurchaseCountry = "se",
+                PurchaseCurrency = "SEK"
+            };
 
             order = check.Create(order);
             Assert.AreEqual("checkout_incomplete", order.Status);
