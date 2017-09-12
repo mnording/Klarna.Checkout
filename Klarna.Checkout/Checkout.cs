@@ -24,7 +24,7 @@ namespace Klarna.Checkout
             
             var url = GetApiLocation(config.Server);
             var ob = MakeObjectToString(order);
-            JsonRequest req = new JsonRequest();
+            CheckoutRequest req = new CheckoutRequest();
             var response = req.CreateRequest(auth, url, "POST", ob);
 
             using(var reader = new StreamReader(response.GetResponseStream()))
@@ -50,7 +50,7 @@ namespace Klarna.Checkout
             DigestCreator digest = new DigestCreator();
             var auth = digest.CreateDigest(config.merchantId, config.sharedSecret);
             var url = GetApiLocation(config.Server, "/" + orderid);
-            JsonRequest req = new JsonRequest();
+            CheckoutRequest req = new CheckoutRequest();
            var response =  req.CreateRequest(auth, url, "GET");
             using (var reader = new StreamReader(response.GetResponseStream()))
             {
@@ -67,7 +67,7 @@ namespace Klarna.Checkout
 
             var url = GetApiLocation(config.Server, "/"+order.OrderId);
             var ob = MakeObjectToString(order);
-            JsonRequest req = new JsonRequest();
+            CheckoutRequest req = new CheckoutRequest();
             req.CreateRequest(auth, url, "POST", ob);
 
         }

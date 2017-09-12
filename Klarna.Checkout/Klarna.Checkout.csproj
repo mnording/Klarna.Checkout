@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckoutRequest.cs" />
     <Compile Include="Entities\CheckBox.cs" />
     <Compile Include="Checkout.cs" />
     <Compile Include="CheckoutOrder.cs" />

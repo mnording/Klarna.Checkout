@@ -29,9 +29,9 @@ namespace Klarna.Checkout
         [JsonProperty(PropertyName = "order_tax_amount")]
         public int OrderTaxAmount;
         [JsonProperty(PropertyName = "merchant_reference1")]
-        public int merchant_reference1;
+        public int MerchantReference1;
         [JsonProperty(PropertyName = "merchant_reference2")]
-        public int merchant_reference2;
+        public int MerchantReference2;
         [JsonProperty(PropertyName = "external_payment_methods")]
         public List<PaymentProvider> ExternalPaymentMethods;
         [JsonProperty(PropertyName = "attachment")]
@@ -42,12 +42,16 @@ namespace Klarna.Checkout
         public List<string> ShippingCountries;
         [JsonProperty(PropertyName = "shipping_options")]
         public List<ShippingOptions> ShippingOptions;
+        /// <summary>
+        /// Pass through field, can be used for any data
+        /// </summary>
         [JsonProperty(PropertyName = "merchant_data")]
         public string MerchantData;
+        /// <summary>
+        /// The shipping option that the customer selected
+        /// </summary>
         [JsonProperty(PropertyName = "selected_shipping_option")]
         public ShippingOptions SelectedShippingOption;
-
-
         public CheckoutOrder():base(null,null)
         {
             

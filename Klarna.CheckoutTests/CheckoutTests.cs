@@ -4,6 +4,7 @@ using System.Runtime.Remoting.Channels;
 using System.Threading;
 using Klarna.Checkout;
 using Klarna.Entities;
+using Klarna.Exception;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Klarna.CheckoutTests
@@ -16,24 +17,7 @@ namespace Klarna.CheckoutTests
         {
             MerchantConfig config = new MerchantConfig("K500746", "fia'w2ahSheahahc", Server.Playground);
             Checkout.Checkout check = new Checkout.Checkout(config);
-            var orderlines = new List<OrderLine>
-            {
-                new OrderLine("test", 2, 1000, 2500)
-            };
-            MerchantUrls url = new MerchantUrls
-            {
-                Terms = new Uri("http://www.test.com"),
-                Push = new Uri("http://www.test.com"),
-                CheckoutUri = new Uri("http://www.test.com"),
-                Confirmation = new Uri("http://www.test.com")
-            };
-            CheckoutOrder order = new CheckoutOrder(orderlines, url)
-            {
-                Locale = "sv-se",
-                PurchaseCountry = "se",
-                PurchaseCurrency = "SEK"
-            };
-
+            var order = getBaseOrder();
             order =  check.Create(order);
             Assert.AreEqual("checkout_incomplete",order.Status);
             Assert.IsNotNull(order.Snippet);
@@ -44,29 +28,16 @@ namespace Klarna.CheckoutTests
         {
             MerchantConfig config = new MerchantConfig("K500746", "fia'w2ahSheahahc", Server.Playground);
             Checkout.Checkout check = new Checkout.Checkout(config);
-            var orderlines = new List<OrderLine>
-            {
-                new OrderLine("test", 2, 1000, 2500)
-            };
-            MerchantUrls url = new MerchantUrls
-            {
-                Terms = new Uri("http://www.test.com"),
-                Push = new Uri("http://www.test.com"),
-                CheckoutUri = new Uri("http://www.test.com"),
-                Confirmation = new Uri("http://www.test.com")
-            };
-            CheckoutOrder order = new CheckoutOrder(orderlines, url)
-            {
-                Locale = "sv-se",
-                PurchaseCountry = "se",
-                PurchaseCurrency = "SEK"
-            };
+            var order = getBaseOrder();
 
             order = check.Create(order);
             Assert.AreEqual("checkout_incomplete", order.Status);
             Assert.IsNotNull(order.Snippet);
-
-           orderlines.Add(new OrderLine("tess",2,2300,2500));
+            var orderlines = new List<OrderLine>
+            {
+                new OrderLine("test", 2, 1000, 2500)
+            };
+            orderlines.Add(new OrderLine("tess",2,2300,2500));
             order.SetNewOrderlines(orderlines);
             check.Update(order);
         }
@@ -75,6 +46,35 @@ namespace Klarna.CheckoutTests
         {
             MerchantConfig config = new MerchantConfig("K500746", "fia'w2ahSheahahc", Server.Playground);
             Checkout.Checkout check = new Checkout.Checkout(config);
+
+            var order = getBaseOrder();
+            order = check.Create(order);
+            Assert.AreEqual("checkout_incomplete", order.Status);
+            Assert.IsNotNull(order.Snippet);
+
+            CheckoutOrder newOrder = check.Read(order.OrderId);
+            Assert.AreEqual(order.OrderId, newOrder.OrderId);
+        }
+
+        [TestMethod]
+        public void MustBeAbleToReadCorrelationOfException()
+        {
+            var order = getBaseOrder();
+            MerchantConfig config = new MerchantConfig("K500746", "fia'w2ahSheahahc", Server.Playground);
+            Checkout.Checkout check = new Checkout.Checkout(config);
+            order.OrderAmount = 00;
+            try
+            {
+                check.Create(order);
+            }
+            catch (ApiException ex)
+            {
+                Assert.IsNotNull(ex.correlation_id);
+            }
+        }
+
+        private CheckoutOrder getBaseOrder()
+        {
             var orderlines = new List<OrderLine>
             {
                 new OrderLine("test", 2, 1000, 2500)
@@ -92,13 +92,7 @@ namespace Klarna.CheckoutTests
                 PurchaseCountry = "se",
                 PurchaseCurrency = "SEK"
             };
-
-            order = check.Create(order);
-            Assert.AreEqual("checkout_incomplete", order.Status);
-            Assert.IsNotNull(order.Snippet);
-
-            CheckoutOrder newOrder = check.Read(order.OrderId);
-            Assert.AreEqual(order.OrderId, newOrder.OrderId);
+            return order;
         }
     }
 }
