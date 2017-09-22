@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Klarna.Checkout.Entities;
 using Klarna.Entities;
-using Klarna.Helpers;
 using Newtonsoft.Json;
 
 namespace Klarna.Checkout
@@ -27,7 +21,7 @@ namespace Klarna.Checkout
         public string Locale;
 
         [JsonProperty(PropertyName = "order_lines")]
-        public List<CheckoutOrderLine> orderlines;
+        public List<CheckoutOrderLine> Orderlines;
         [JsonProperty(PropertyName = "order_amount")]
         public int OrderAmount;
         [JsonProperty(PropertyName = "order_tax_amount")]
@@ -62,7 +56,7 @@ namespace Klarna.Checkout
         }
         public CheckoutOrder(List<CheckoutOrderLine> orderlines, MerchantUrls urls, Address shippAddress=null, Address billAddress = null) : base( urls,shippAddress,billAddress)
         {
-            this.orderlines = orderlines;
+            Orderlines = orderlines;
             RecalcOrderTotals();
            
         }
@@ -73,7 +67,7 @@ namespace Klarna.Checkout
             OrderAmount = 0;
             OrderTaxAmount = 0;
             
-            foreach (CheckoutOrderLine line in orderlines)
+            foreach (CheckoutOrderLine line in Orderlines)
             {
                 OrderAmount += line.UnitPrice * line.Quantity;
                 OrderTaxAmount += line.TotalTaxAmount;
@@ -81,7 +75,7 @@ namespace Klarna.Checkout
         }
         public void SetNewOrderlines(List<CheckoutOrderLine> orderlines)
         {
-            this.orderlines = orderlines;
+            Orderlines = orderlines;
             RecalcOrderTotals();
         }
         

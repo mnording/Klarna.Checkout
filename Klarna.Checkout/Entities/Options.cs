@@ -40,7 +40,7 @@ namespace Klarna.Checkout.Entities
         /// Border radius
         /// </summary>
         [JsonProperty(PropertyName = "radius_border")]
-        public string Radius_Border;
+        public string RadiusBorder;
         [JsonProperty(PropertyName = "date_of_birth_mandatory")]
         public bool DateOfBirthMandatory;
         /// <summary>
