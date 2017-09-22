@@ -27,9 +27,10 @@ namespace Klarna.Checkout.Entities
         {
             double taxratefordivide = TaxRate / 10000.00;
             var priceexvat = TotalAmount / (1 + (taxratefordivide));
-            priceexvat = priceexvat - TotalAmount;
-            priceexvat = priceexvat * -1;
-            return (int)(priceexvat);
+           var vatAmount = priceexvat - TotalAmount;
+            vatAmount = vatAmount * -1;
+            vatAmount = Math.Round(vatAmount);
+            return (int)(vatAmount);
         }
     }
 }
