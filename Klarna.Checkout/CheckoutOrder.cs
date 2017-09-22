@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,9 @@ namespace Klarna.Checkout
         public string PurchaseCurrency;
         [JsonProperty(PropertyName = "locale")]
         public string Locale;
+
+        [JsonProperty(PropertyName = "order_lines")]
+        public List<CheckoutOrderLine> orderlines;
         [JsonProperty(PropertyName = "order_amount")]
         public int OrderAmount;
         [JsonProperty(PropertyName = "order_tax_amount")]
@@ -56,25 +60,28 @@ namespace Klarna.Checkout
         {
             
         }
-        public CheckoutOrder(List<OrderLine> orderlines, MerchantUrls urls, Address shippAddress=null, Address billAddress = null) : base(orderlines, urls,shippAddress,billAddress)
+        public CheckoutOrder(List<CheckoutOrderLine> orderlines, MerchantUrls urls, Address shippAddress=null, Address billAddress = null) : base( urls,shippAddress,billAddress)
         {
+            this.orderlines = orderlines;
             RecalcOrderTotals();
+           
         }
 
+       
         private void RecalcOrderTotals()
         {
             OrderAmount = 0;
             OrderTaxAmount = 0;
             
-            foreach (OrderLine line in cart)
+            foreach (CheckoutOrderLine line in orderlines)
             {
                 OrderAmount += line.UnitPrice * line.Quantity;
                 OrderTaxAmount += line.TotalTaxAmount;
             }
         }
-        public void SetNewOrderlines(List<OrderLine> orderlines)
+        public void SetNewOrderlines(List<CheckoutOrderLine> orderlines)
         {
-            cart = orderlines;
+            this.orderlines = orderlines;
             RecalcOrderTotals();
         }
         

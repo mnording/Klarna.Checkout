@@ -44,7 +44,7 @@ namespace Klarna.Checkout.Entities
         [JsonProperty(PropertyName = "date_of_birth_mandatory")]
         public bool DateOfBirthMandatory;
         /// <summary>
-        /// If true, the Order Detail subtodals view is expanded. Default: false
+        /// If true, the Order Detail subtotals view is expanded. Default: false
         /// </summary>
         [JsonProperty(PropertyName = "show_subtotal_detail")]
         public bool ShowSubtotalDetail;

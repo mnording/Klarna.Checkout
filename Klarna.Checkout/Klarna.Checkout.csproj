@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mnording.Klarna, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mnording.Klarna.Core.3.0.1\lib\net45\Mnording.Klarna.dll</HintPath>
+    <Reference Include="Mnording.Klarna, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mnording.Klarna.Core.3.1.2\lib\net45\Mnording.Klarna.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -52,6 +52,7 @@
     <Compile Include="Entities\CheckBox.cs" />
     <Compile Include="Checkout.cs" />
     <Compile Include="CheckoutOrder.cs" />
+    <Compile Include="Entities\CheckoutOrderLine.cs" />
     <Compile Include="Entities\Options.cs" />
     <Compile Include="Entities\PaymentProvider.cs" />
     <Compile Include="Entities\ShippingOptions.cs" />
@@ -59,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
